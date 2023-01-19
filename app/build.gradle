@@ -1,0 +1,98 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        applicationId "com.example.photoeditor"
+        minSdk 21
+        targetSdk 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        renderscriptTargetApi 21
+        renderscriptSupportModeEnabled true
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    // Dagger Hilt
+    implementation "com.google.dagger:hilt-android:${rootProject.ext.dagger_hilt_version}"
+    kapt "com.google.dagger:hilt-android-compiler:${rootProject.ext.dagger_hilt_version}"
+
+    // Lifecycle aware components(ViewModel,LiveData etc...)
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${rootProject.ext.lifecycle_version}"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${rootProject.ext.lifecycle_version}"
+
+    // Coroutine for Activity,Fragment & ViewModel.
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${rootProject.ext.coroutine_version}"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${rootProject.ext.coroutine_version}"
+
+    // KTX artifacts for Activity and Fragment
+    implementation "androidx.activity:activity-ktx:1.3.1"
+    implementation "androidx.fragment:fragment-ktx:1.3.6"
+
+    // Material Design
+    implementation 'com.google.android.material:material:1.5.0-alpha03'
+
+    // Navigation Component
+    implementation "androidx.navigation:navigation-fragment-ktx:${rootProject.ext.nav_version}"
+    implementation "androidx.navigation:navigation-ui-ktx:${rootProject.ext.nav_version}"
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    // DS Photo Editor SDK
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation(name:'ds-photo-editor-sdk-v10', ext:'aar')
+
+    // SDK related dependencies
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+    //Lottie
+    implementation 'com.airbnb.android:lottie:3.4.0'
+
+}
