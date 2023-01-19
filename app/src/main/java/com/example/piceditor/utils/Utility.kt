@@ -3,7 +3,7 @@ package com.example.piceditor.utils
 import android.content.Context
 import android.net.Uri
 import androidx.core.content.FileProvider
-import io.reactivex.android.BuildConfig
+import com.example.piceditor.BuildConfig
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
