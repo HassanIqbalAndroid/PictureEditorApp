@@ -22,7 +22,7 @@ class   ResultFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Toast.makeText(context, "Photo is Saved.", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, "Photo is Saved.", Toast.LENGTH_SHORT).show()
 
     }
 
