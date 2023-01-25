@@ -52,9 +52,9 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    // Dagger Hilt
-    implementation "com.google.dagger:hilt-android:${rootProject.ext.dagger_hilt_version}"
-    kapt "com.google.dagger:hilt-android-compiler:${rootProject.ext.dagger_hilt_version}"
+//    // Dagger Hilt
+//    implementation "com.google.dagger:hilt-android:${rootProject.ext.dagger_hilt_version}"
+//    kapt "com.google.dagger:hilt-android-compiler:${rootProject.ext.dagger_hilt_version}"
 
     // Lifecycle aware components(ViewModel,LiveData etc...)
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${rootProject.ext.lifecycle_version}"
@@ -64,16 +64,16 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${rootProject.ext.coroutine_version}"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:${rootProject.ext.coroutine_version}"
 
-    // KTX artifacts for Activity and Fragment
-    implementation "androidx.activity:activity-ktx:1.3.1"
-    implementation "androidx.fragment:fragment-ktx:1.3.6"
+//    // KTX artifacts for Activity and Fragment
+//    implementation "androidx.activity:activity-ktx:1.3.1"
+//    implementation "androidx.fragment:fragment-ktx:1.3.6"
 
-    // Material Design
-    implementation 'com.google.android.material:material:1.5.0-alpha03'
+//    // Material Design
+//    implementation 'com.google.android.material:material:1.5.0-alpha03'
 
-    // Navigation Component
-    implementation "androidx.navigation:navigation-fragment-ktx:${rootProject.ext.nav_version}"
-    implementation "androidx.navigation:navigation-ui-ktx:${rootProject.ext.nav_version}"
+//    // Navigation Component
+//    implementation "androidx.navigation:navigation-fragment-ktx:${rootProject.ext.nav_version}"
+//    implementation "androidx.navigation:navigation-ui-ktx:${rootProject.ext.nav_version}"
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
@@ -102,6 +102,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.isseiaoki:simplecropview:1.1.8'
+    implementation "com.vorlonsoft:androidrate:1.2.1"
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
@@ -111,5 +113,7 @@ dependencies {
 
     def multidex_version = "2.0.1"
     implementation "androidx.multidex:multidex:$multidex_version"
+
+
 
 }

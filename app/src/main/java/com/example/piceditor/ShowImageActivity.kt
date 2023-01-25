@@ -42,7 +42,7 @@ class ShowImageActivity : AppCompatActivity(), View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_show_image)
-
+        Toast.makeText(this,"Image saved!",Toast.LENGTH_SHORT).show()
         image_uri = intent.getStringExtra("image_uri")
 
         saved_file = File(image_uri!!)
@@ -59,98 +59,21 @@ class ShowImageActivity : AppCompatActivity(), View.OnClickListener {
 
         img_show!!.setImageURI(Uri.parse(image_uri))
 
-        findViewById<View>(R.id.whatsapp_share).setOnClickListener(this)
-        findViewById<View>(R.id.facebook_share).setOnClickListener(this)
-        findViewById<View>(R.id.instagram_share).setOnClickListener(this)
-        findViewById<View>(R.id.messanger_share).setOnClickListener(this)
-        findViewById<View>(R.id.twitter_share).setOnClickListener(this)
-        findViewById<View>(R.id.share_more).setOnClickListener(this)
         findViewById<View>(R.id.img_folder).setOnClickListener(this)
 
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.whatsapp_share -> {
-                checkClick()
-                shareImageSocialApp("com.whatsapp", "Whatsapp")
-
-            }
-            R.id.instagram_share -> {
-                checkClick()
-                shareImageSocialApp("com.instagram.android", "Instagram")
-            }
-            R.id.twitter_share -> {
-                checkClick()
-                shareImageSocialApp("com.twitter.android", "Twitter")
-            }
-            R.id.messanger_share -> {
-                checkClick()
-                shareImageSocialApp("com.facebook.orca", "Facebook Messanger")
-            }
-            R.id.share_more -> {
-                checkClick()
-                val share = Intent("android.intent.action.SEND")
-                share.type = "image/*"
-                share.putExtra(
-                    "android.intent.extra.STREAM",
-                    FileProvider.getUriForFile(
-                        this@ShowImageActivity,
-                        BuildConfig.APPLICATION_ID + ".provider",
-                        saved_file!!
-                    )
-                )
-                share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                //                share.putExtra("android.intent.extra.STREAM", image_uri);
-                startActivity(Intent.createChooser(share, "Share Image"))
-            }
-            R.id.facebook_share -> {
-                checkClick()
-                shareImageSocialApp("com.facebook.katana", "Facebook")
-            }
-
             R.id.img_folder -> {
                 checkClick()
-                var intent = Intent(this, MyCreationActivity::class.java)
+                var intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
         }
     }
 
-    fun shareImageSocialApp(pkg: String, appName: String) {
-        val share = Intent("android.intent.action.SEND")
-
-        share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        share.putExtra(
-            "android.intent.extra.STREAM",
-            FileProvider.getUriForFile(
-                this@ShowImageActivity,
-                BuildConfig.APPLICATION_ID + ".provider",
-                saved_file!!
-            )
-        )
-        share.putExtra(Intent.EXTRA_TEXT,getString(R.string.txt_share))
-
-        //        share.putExtra("android.intent.extra.STREAM", Uri.fromFile(saved_file));
-
-        share.type = "image/*"
-        if (isPackageInstalled(pkg, this)) {
-            share.setPackage(pkg)
-            startActivity(Intent.createChooser(share, "Share Image"))
-            return
-        }
-        Toast.makeText(applicationContext, "Please Install $appName", Toast.LENGTH_LONG).show()
-    }
-
-    private fun isPackageInstalled(packagename: String, context: Context): Boolean {
-        try {
-            context.packageManager.getPackageInfo(packagename, PackageManager.GET_META_DATA)
-            return true
-        } catch (e: PackageManager.NameNotFoundException) {
-            return false
-        }
-    }
 
     override fun onBackPressed() {
         val intent = Intent(this, MainActivity::class.java)
