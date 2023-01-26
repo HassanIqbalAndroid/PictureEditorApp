@@ -1,4 +1,4 @@
-package com.photoeditor.photoeffect
+package com.example.piceditor
 
 import android.Manifest
 import android.content.Intent
@@ -13,9 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import com.example.piceditor.BuildConfig
-import com.example.piceditor.R
-import com.example.piceditor.SelectImageActivity
 import com.example.piceditor.splash.Splash.Companion.isFromSplash
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
@@ -24,24 +21,23 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    var PICK_IMAGE: Int = 111
+    private var PICK_IMAGE: Int = 111
     var CAMERA_REQUEST: Int = 123
 
-    lateinit var gallary_images: ArrayList<String>
+    private lateinit var gallary_images: ArrayList<String>
 //    lateinit var adapter: ImageAdapter
 
     companion object {
         var isFromSaved: Boolean = true
     }
 
-    fun ImagesPath(): ArrayList<String> {
+    private fun ImagesPath(): ArrayList<String> {
         val cursor: Cursor
-
-        var listOfAllImages = ArrayList<String>()
+        val listOfAllImages = ArrayList<String>()
         var absolutePathOfImage: String? = null
         val uri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
 
-        var projection = arrayOf(MediaStore.MediaColumns.DATA)
+        val projection = arrayOf(MediaStore.MediaColumns.DATA)
 
         cursor =
             contentResolver.query(
@@ -60,8 +56,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         return listOfAllImages
     }
-
-    lateinit var timer: Timer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -140,7 +134,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode == 100) {
-            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.e("Permission", "Granted")
                 setAdapter()
             } else {
@@ -152,7 +146,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private var mLastClickTime: Long = 0
-    fun checkClick() {
+    private fun checkClick() {
         if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
             return
         }
@@ -167,7 +161,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.editore -> {
                 checkClick()
 
-                var intent = Intent()
+                val intent = Intent()
                 intent.type = "image/*"
                 intent.action = Intent.ACTION_PICK
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE)
@@ -175,7 +169,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.collage -> {
                 checkClick()
-                var intent = Intent(this, SelectImageActivity::class.java)
+                val intent = Intent(this, SelectImageActivity::class.java)
                 startActivity(intent)
             }
             R.id.camera -> {
@@ -191,9 +185,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             Environment.getExternalStorageDirectory().absolutePath + "/DCIM",
                             capturedPath
                         )
-                        photofile.parentFile.mkdirs()
+                        photofile.parentFile?.mkdirs()
                         mCapturedImageUri = Uri.fromFile(photofile)
-                    } catch (e: java.lang.Exception) {
+                    } catch (_: java.lang.Exception) {
 
                     }
                     if (photofile != null) {
@@ -211,16 +205,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        super.onActivityResult(requestCode, resultCode, data)
 //
 //        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
 //            if (data != null) {
 //                try {
-//                    var uri: Uri = data.data!!
+//                    val uri: Uri = data.data!!
 //
-//                    var intent = Intent(this, ImageEditActivity::class.java)
+//                    val intent = Intent(this, ImageEditActivity::class.java)
 //                    intent.putExtra("image_uri", uri.toString())
 //                    startActivity(intent)
 //
@@ -271,7 +264,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 //            })
 //            return view
 //        }
-
+//
 //        override fun isViewFromObject(view: View, `object`: Any): Boolean {
 //            return (view == `object` as View)
 //        }
@@ -284,11 +277,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 //            (container as ViewPager).removeView(`object` as View)
 //        }
 //    }
-//
-//    override fun onBackPressed() {
-//        var intent = Intent(Intent.ACTION_MAIN)
-//        intent.addCategory(Intent.CATEGORY_HOME)
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//        startActivity(intent)
-//    }
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        val intent = Intent(Intent.ACTION_MAIN)
+        intent.addCategory(Intent.CATEGORY_HOME)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+    }
 }

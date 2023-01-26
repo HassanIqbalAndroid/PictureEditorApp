@@ -10,10 +10,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.piceditor.adapters.SelectedPhotoAdapter
-import com.example.piceditor.uiFragments.CollageActivity
 import com.example.piceditor.uiFragments.GalleryAlbumFragment
 import com.example.piceditor.uiFragments.GalleryAlbumImageFragment
-import com.photoeditor.photoeffect.MainActivity
 import kotlinx.android.synthetic.main.activity_select_image.*
 import java.io.File
 import java.lang.Exception

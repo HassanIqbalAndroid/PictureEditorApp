@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PicEditor">
         <activity
-            android:name=".uiFragments.CollageActivity"
+            android:name=".CollageActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.photoeditor.photoeffect.MainActivity"
+        <activity android:name=".MainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
