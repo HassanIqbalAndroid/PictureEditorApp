@@ -1,6 +1,5 @@
 package com.example.piceditor
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -22,7 +21,6 @@ class SelectImageActivity : AppCompatActivity(), GalleryAlbumImageFragment.OnSel
     SelectedPhotoAdapter.OnDeleteButtonClickListener {
 
 
-    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onDeleteButtonClick(str: String) {
 
         mSelectedImages.remove(str)
@@ -48,7 +46,6 @@ class SelectImageActivity : AppCompatActivity(), GalleryAlbumImageFragment.OnSel
     }
 
 
-    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onSelectImage(str: String) {
         if (this.mSelectedImages.size == this.maxIamgeCount) {
             Toast.makeText(
@@ -85,11 +82,12 @@ class SelectImageActivity : AppCompatActivity(), GalleryAlbumImageFragment.OnSel
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_container, GalleryAlbumFragment(this)).commit()
 
-        btn_next.setOnClickListener {
-//            Toast.makeText(this, "Hi Working", Toast.LENGTH_SHORT).show()
-            checkClick()
-            createCollage()
-        }
+        btn_next.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                checkClick()
+                createCollage()
+            }
+        })
     }
 
     fun createCollage() {
@@ -119,7 +117,7 @@ class SelectImageActivity : AppCompatActivity(), GalleryAlbumImageFragment.OnSel
         }
 
         if (requestCode == 111) {
-            var intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
