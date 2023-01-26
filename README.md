@@ -1,7 +1,9 @@
 # Welcome to Picture Editor
 Picture Editor is a photo editing and collage making application that allows you to enhance your photos and create beautiful collages with ease.
 With a wide range of editing tools and a user-friendly interface, Picture Editor is the perfect app for all your photo editing needs.
-<img src="https://user-images.githubusercontent.com/122788406/214818704-ac90aae5-6f80-4543-a60b-9d5cb33fdac4.jpeg" width="500" height="800">
+
+
+<img src="https://user-images.githubusercontent.com/122788406/214818704-ac90aae5-6f80-4543-a60b-9d5cb33fdac4.jpeg" width="350" height="600">
 
 # Features
 ## Image Editor: 
