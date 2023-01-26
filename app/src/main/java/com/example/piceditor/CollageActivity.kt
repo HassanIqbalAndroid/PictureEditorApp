@@ -5,7 +5,6 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.View
@@ -16,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.piceditor.adapters.FrameAdapter
 import com.example.piceditor.model.TemplateItem
+import com.example.piceditor.multitouch.PhotoView
 import com.example.piceditor.utils.AndroidUtils
 import com.example.piceditor.utils.FrameImageUtils
 import com.example.piceditor.utils.ImageUtils
@@ -47,7 +47,7 @@ open class CollageActivity : AppCompatActivity(), View.OnClickListener,
     private var mBackgroundUri: Uri? = null
     private var mSavedInstanceState: Bundle? = null
     private var mLayoutRatio = RATIO_SQUARE
-    private lateinit var mPhotoView: com.photoeditor.photoeffect.multitouch.PhotoView
+    private lateinit var mPhotoView: PhotoView
     protected var mOutputScale = 1f
     protected var mSelectedTemplateItem: TemplateItem? = null
     private var mImageInTemplateCount = 0
@@ -242,7 +242,7 @@ open class CollageActivity : AppCompatActivity(), View.OnClickListener,
         seekbar_space.setOnSeekBarChangeListener(space_listener())
         seekbar_corner.setOnSeekBarChangeListener(corner_listener())
 
-        mPhotoView = com.photoeditor.photoeffect.multitouch.PhotoView(this)
+        mPhotoView = PhotoView(this)
         rl_container.viewTreeObserver
             .addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {

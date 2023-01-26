@@ -79,7 +79,7 @@ class FilterCollageActivity : AppCompatActivity(), View.OnClickListener {
 
     @RequiresApi(Build.VERSION_CODES.FROYO)
     private fun saveBitmap(bitmap: Bitmap) {
-        val mainDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Photo Editor")
+        val mainDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "TriEditor")
         if (!mainDir.exists()) {
             if (mainDir.mkdir())
                 Log.e("Create Directory", "Main Directory Created : $mainDir")

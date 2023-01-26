@@ -1,4 +1,4 @@
-package com.photoeditor.photoeffect.multitouch
+package com.example.piceditor.multitouch
 
 import android.content.Context
 import android.content.res.Configuration
@@ -11,13 +11,17 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import com.example.piceditor.R
-import com.example.piceditor.utils.ImageDecoder.decodeUriToDrawable
 import com.photoeditor.photoeffect.frame.FrameTouch
 import com.photoeditor.photoeffect.frame.OnFrameTouchListener
+import com.photoeditor.photoeffect.multitouch.ImageEntity
+import com.photoeditor.photoeffect.multitouch.MultiTouchController
+import com.photoeditor.photoeffect.multitouch.MultiTouchEntity
+import com.photoeditor.photoeffect.multitouch.OnDoubleClickListener
 
 import java.util.ArrayList
 
- class PhotoView(context: Context, attrs: AttributeSet?, defStyle: Int) : View(context, attrs, defStyle), MultiTouchController.MultiTouchObjectCanvas<MultiTouchEntity> {
+ class PhotoView(context: Context, attrs: AttributeSet?, defStyle: Int) : View(context, attrs, defStyle),
+     MultiTouchController.MultiTouchObjectCanvas<MultiTouchEntity> {
 
      // original code
     var imageEntities: ArrayList<MultiTouchEntity>? = ArrayList()
@@ -94,6 +98,7 @@ import java.util.ArrayList
                     metrics.widthPixels, metrics.heightPixels
                 )
         // photocollage
+//        mTouchAreaInterval = res.getDimension(R.dimen.touch_area_interval)
         mTouchAreaInterval = res.getDimension(R.dimen.touch_area_interval)
 
     }

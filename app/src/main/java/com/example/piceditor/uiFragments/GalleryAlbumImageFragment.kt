@@ -13,9 +13,6 @@ import com.example.piceditor.adapters.GalleryAlbumImageAdapter
 
 import kotlinx.android.synthetic.main.fragment_gallery_album_image.view.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class GalleryAlbumImageFragment : Fragment() {
 
     companion object {
@@ -41,11 +38,11 @@ class GalleryAlbumImageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        var view = inflater.inflate(R.layout.fragment_gallery_album_image, container, false)
+        val view = inflater.inflate(R.layout.fragment_gallery_album_image, container, false)
 
         if (arguments != null) {
-            mImages = arguments!!.getStringArrayList(ALBUM_IMAGE_EXTRA)!!
-            names = arguments!!.getString(ALBUM_NAME_EXTRA)!!
+            mImages = requireArguments().getStringArrayList(ALBUM_IMAGE_EXTRA)!!
+            names = requireArguments().getString(ALBUM_NAME_EXTRA)!!
 
             if (mImages != null) {
 
