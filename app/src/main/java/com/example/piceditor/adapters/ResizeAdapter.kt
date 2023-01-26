@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +35,20 @@ class ResizeAdapter(context: Context, resizeClickListener: OnResizeClickListener
         "9:16",
         "16:9"
     )
+    var imgs = arrayOf(
+        R.drawable.empty,
+        R.drawable.empty,
+        R.drawable.instagram_icon,
+        R.drawable.instagram_icon,
+        R.drawable.pinterest_icon,
+        R.drawable.empty,
+        R.drawable.empty,
+        R.drawable.facebook_icon,
+        R.drawable.empty,
+        R.drawable.empty,
+        R.drawable.tiktok_icon,
+        R.drawable.youtube_icon
+    )
     var selectedindex = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResizeHolder {
@@ -47,7 +62,7 @@ class ResizeAdapter(context: Context, resizeClickListener: OnResizeClickListener
 
     override fun onBindViewHolder(holder: ResizeHolder, @SuppressLint("RecyclerView") position: Int) {
         holder.item_resize.setText(texts[position])
-
+        holder.imgs_src.setImageResource(imgs[position]!!)
         if (selectedindex == position) {
             holder.item_resize.setTextColor(mContext.resources.getColor(R.color.colorAccent))
         } else {
@@ -66,6 +81,7 @@ class ResizeAdapter(context: Context, resizeClickListener: OnResizeClickListener
 
     class ResizeHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var item_resize: TextView = itemView.findViewById(R.id.item_resize)
+        var imgs_src: ImageView = itemView.findViewById(R.id.imgs)
         var ll_resize: LinearLayout = itemView.findViewById(R.id.ll_resize)
     }
 }

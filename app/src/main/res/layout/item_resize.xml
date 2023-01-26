@@ -16,5 +16,15 @@
         android:textColor="@color/white"
         android:textSize="15sp"
         android:typeface="sans" />
+    <ImageView
+        android:id="@+id/imgs"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="#4E4E4E"
+        android:src="@drawable/empty"/>
+
 
 </LinearLayout>
