@@ -6,4 +6,4 @@ pluginManagement {
     }
 }
 rootProject.name = "PicEditor"
-include ':app'
+include ':app',':simplecropview'

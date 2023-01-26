@@ -1,6 +1,7 @@
-package com.example.piceditor
+package com.photoeditor.photoeffect
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -9,35 +10,42 @@ import android.os.*
 import android.provider.MediaStore
 import android.util.Log
 import android.view.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.example.piceditor.BuildConfig
+import com.example.piceditor.ImageEditActivity
+import com.example.piceditor.R
+import com.example.piceditor.SelectImageActivity
 import com.example.piceditor.splash.Splash.Companion.isFromSplash
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
+import java.net.URI
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    private var PICK_IMAGE: Int = 111
+    var PICK_IMAGE: Int = 111
     var CAMERA_REQUEST: Int = 123
 
-    private lateinit var gallary_images: ArrayList<String>
+    lateinit var gallary_images: ArrayList<String>
 //    lateinit var adapter: ImageAdapter
 
     companion object {
         var isFromSaved: Boolean = true
     }
 
-    private fun ImagesPath(): ArrayList<String> {
+    fun ImagesPath(): ArrayList<String> {
         val cursor: Cursor
-        val listOfAllImages = ArrayList<String>()
+
+        var listOfAllImages = ArrayList<String>()
         var absolutePathOfImage: String? = null
         val uri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
 
-        val projection = arrayOf(MediaStore.MediaColumns.DATA)
+        var projection = arrayOf(MediaStore.MediaColumns.DATA)
 
         cursor =
             contentResolver.query(
@@ -56,6 +64,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         return listOfAllImages
     }
+
+    lateinit var timer: Timer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -134,7 +144,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode == 100) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.e("Permission", "Granted")
                 setAdapter()
             } else {
@@ -146,7 +156,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private var mLastClickTime: Long = 0
-    private fun checkClick() {
+    fun checkClick() {
         if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
             return
         }
@@ -160,18 +170,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when (v!!.id) {
             R.id.editore -> {
                 checkClick()
-
-                val intent = Intent()
+                var intent = Intent()
                 intent.type = "image/*"
                 intent.action = Intent.ACTION_PICK
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE)
-            }
 
+                }
             R.id.collage -> {
                 checkClick()
-                val intent = Intent(this, SelectImageActivity::class.java)
+                var intent = Intent(this, SelectImageActivity::class.java)
                 startActivity(intent)
             }
+
             R.id.camera -> {
 
                 checkClick()
@@ -185,9 +195,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             Environment.getExternalStorageDirectory().absolutePath + "/DCIM",
                             capturedPath
                         )
-                        photofile.parentFile?.mkdirs()
+                        photofile.parentFile.mkdirs()
                         mCapturedImageUri = Uri.fromFile(photofile)
-                    } catch (_: java.lang.Exception) {
+                    } catch (e: java.lang.Exception) {
 
                     }
                     if (photofile != null) {
@@ -205,83 +215,30 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if (resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE) {
-//            if (data != null) {
-//                try {
-//                    val uri: Uri = data.data!!
-//
-//                    val intent = Intent(this, ImageEditActivity::class.java)
-//                    intent.putExtra("image_uri", uri.toString())
-//                    startActivity(intent)
-//
-//
-//                } catch (e: NullPointerException) {
-//                    e.printStackTrace()
-//                }
-//            }
-//        } else if (resultCode == Activity.RESULT_OK && requestCode == CAMERA_REQUEST) {
-//            if (mCapturedImageUri != null) {
-//                var intent = Intent(this, ImageEditActivity::class.java)
-//                intent.putExtra("image_uri", mCapturedImageUri.toString())
-//                startActivity(intent)
-//            }
-//        }
-//    }
-//
-//    inner class ImageAdapter : PagerAdapter() {
-//
-//        override fun instantiateItem(container: ViewGroup, position: Int): Any {
-//            var view: View =
-//                LayoutInflater.from(this@MainActivity)
-//                    .inflate(R.layout.item_slider, container, false)
-//            var img_slider: ImageView = view.findViewById(R.id.img_slider) as ImageView
-//
-//            /*     Picasso.with(this@MainActivity)
-//                     .load("http://i.imgur.com/DvpvklR.png")
-//                     .fit()
-//                     .into(img_slider)
-//     */
-//
-//            Glide.with(this@MainActivity)
-//                .asBitmap()
-//                .apply(RequestOptions.circleCropTransform())
-//                .load(gallary_images[position])
-//                .into(img_slider)
-//
-//            (container as ViewPager).addView(view)
-//
-//            img_slider.setOnClickListener(object : View.OnClickListener {
-//                override fun onClick(v: View?) {
-//                    checkClick()
-//                    var uri = Uri.fromFile(File(gallary_images[position]))
-//                    var intent = Intent(this@MainActivity, ImageEditActivity::class.java)
-//                    intent.putExtra("image_uri", uri.toString())
-//                    startActivity(intent)
-//                }
-//            })
-//            return view
-//        }
-//
-//        override fun isViewFromObject(view: View, `object`: Any): Boolean {
-//            return (view == `object` as View)
-//        }
-//
-//        override fun getCount(): Int {
-//            return gallary_images.size
-//        }
-//
-//        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-//            (container as ViewPager).removeView(`object` as View)
-//        }
-//    }
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        val intent = Intent(Intent.ACTION_MAIN)
-        intent.addCategory(Intent.CATEGORY_HOME)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode== Activity.RESULT_OK && requestCode == PICK_IMAGE){
+            if(data!=null){
+                try {
+                    var uri: Uri = data.data!!
+
+                    var intent = Intent(this, ImageEditActivity::class.java)
+                    intent.putExtra("image_uri", uri.toString())
+                    startActivity(intent)
+
+
+                } catch (e: NullPointerException) {
+                    e.printStackTrace()
+                }
+            }
+        } else if(resultCode == Activity.RESULT_OK && requestCode == CAMERA_REQUEST) {
+                if (mCapturedImageUri != null) {
+                    var intent = Intent(this, ImageEditActivity::class.java)
+                    intent.putExtra("image_uri", mCapturedImageUri.toString())
+                    startActivity(intent)
+                }
+            }
     }
+
 }
