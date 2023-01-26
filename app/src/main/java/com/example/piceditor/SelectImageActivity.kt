@@ -10,7 +10,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.piceditor.adapters.SelectedPhotoAdapter
-import com.example.piceditor.uiFragments.CollageActivity
 import com.example.piceditor.uiFragments.GalleryAlbumFragment
 import com.example.piceditor.uiFragments.GalleryAlbumImageFragment
 import kotlinx.android.synthetic.main.activity_select_image.*
@@ -32,7 +31,7 @@ class SelectImageActivity : AppCompatActivity(), GalleryAlbumImageFragment.OnSel
         sb.append("(")
         sb.append(this.mSelectedImages.size)
         sb.append(")")
-        textView.setText(str2 + sb.toString())
+        textView.text = str2 + sb.toString()
     }
 
     private val mSelectedImages = ArrayList<String>()
@@ -48,27 +47,25 @@ class SelectImageActivity : AppCompatActivity(), GalleryAlbumImageFragment.OnSel
 
 
     override fun onSelectImage(str: String) {
-        if (str != null) {
-            if (this.mSelectedImages.size == this.maxIamgeCount) {
-                Toast.makeText(
-                    this,
-                    String.format("You only need %d photo(s)", maxIamgeCount),
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-            } else {
-                var uri = Uri.fromFile(File(str))
+        if (this.mSelectedImages.size == this.maxIamgeCount) {
+            Toast.makeText(
+                this,
+                String.format("You only need %d photo(s)", maxIamgeCount),
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        } else {
+            var uri = Uri.fromFile(File(str))
 
-                this.mSelectedImages.add(str)
-                this.mSelectedPhotoAdapter.notifyDataSetChanged()
-                val textView = text_imgcount
-                val str2 = "Select upto 10 photo(s)"
-                val sb = StringBuilder()
-                sb.append("(")
-                sb.append(this.mSelectedImages.size)
-                sb.append(")")
-                textView.setText(str2 + sb.toString())
-            }
+            this.mSelectedImages.add(str)
+            this.mSelectedPhotoAdapter.notifyDataSetChanged()
+            val textView = text_imgcount
+            val str2 = "Select upto 10 photo(s)"
+            val sb = StringBuilder()
+            sb.append("(")
+            sb.append(this.mSelectedImages.size)
+            sb.append(")")
+            textView.text = str2 + sb.toString()
         }
     }
 
@@ -100,7 +97,7 @@ class SelectImageActivity : AppCompatActivity(), GalleryAlbumImageFragment.OnSel
         }
 
         try {
-            var intent = Intent(this, CollageActivity::class.java)
+            val intent = Intent(this, CollageActivity::class.java)
             intent.putExtra("imageCount", mSelectedImages.size)
             intent.putExtra("selectedImages", mSelectedImages)
             intent.putExtra("imagesinTemplate", mSelectedImages.size)
@@ -120,7 +117,7 @@ class SelectImageActivity : AppCompatActivity(), GalleryAlbumImageFragment.OnSel
         }
 
         if (requestCode == 111) {
-            var intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }

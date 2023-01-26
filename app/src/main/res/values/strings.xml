@@ -60,7 +60,7 @@
     </string-array>
 
     <string name="waring_out_of_memory">Not enough memory. Please remove images or your program will be crashed.!!!</string>
-    <string name="txt_share">Let your true colors shine though Artistic: Photo editor &amp; collage maker.
+    <string name="txt_share">Let your true colors shine though Photo editor &amp; collage maker.
         \n\nDownload Now: https://bit.ly/3g3WUau</string>
 
     <!--TODO : Replace  Admob App ID here -->
@@ -100,4 +100,5 @@
     <string name="border_blur">Border Blur</string>
     <string name="done_save">Done|Save</string>
     <string name="reset">Reset</string>
+    <string name="tri_editor">Tri Editor</string>
 </resources>

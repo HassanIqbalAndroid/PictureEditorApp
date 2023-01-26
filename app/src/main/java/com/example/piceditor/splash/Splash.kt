@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.example.piceditor.MainActivity
 import com.example.piceditor.databinding.ActivitySplashBinding
+import com.example.piceditor.MainActivity
 
 class Splash : AppCompatActivity() {
 

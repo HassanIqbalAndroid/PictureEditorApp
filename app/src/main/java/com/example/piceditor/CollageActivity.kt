@@ -1,4 +1,4 @@
-package com.example.piceditor.uiFragments
+package com.example.piceditor
 
 import android.content.Intent
 import android.graphics.*
@@ -10,14 +10,10 @@ import android.os.Bundle
 import android.os.SystemClock
 import android.view.View
 import android.view.ViewTreeObserver
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.SeekBar
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.piceditor.FilterCollageActivity
-import com.example.piceditor.R
+import androidx.recyclerview.widget.RecyclerView
 import com.example.piceditor.adapters.FrameAdapter
 import com.example.piceditor.model.TemplateItem
 import com.example.piceditor.utils.AndroidUtils
@@ -62,6 +58,7 @@ open class CollageActivity : AppCompatActivity(), View.OnClickListener,
     lateinit var img_background: ImageView
 
     private var mLastClickTime: Long = 0
+
     private fun checkClick() {
         if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
             return
@@ -208,20 +205,18 @@ open class CollageActivity : AppCompatActivity(), View.OnClickListener,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_collage)
 
-//        val list_bg = findViewById<RecyclerView>(R.id.list_bg)
-//
-//        val tab_layout = findViewById<LinearLayout>(R.id.tab_layout)
-//        val tab_border = findViewById<LinearLayout>(R.id.tab_border)
-//        val tab_bg = findViewById<LinearLayout>(R.id.tab_bg)
-//
-//        val seekbar_space = findViewById<SeekBar>(R.id.seekbar_space)
-//        val seekbar_corner = findViewById<SeekBar>(R.id.seekbar_corner)
-//
-//        val rl_container = findViewById<RelativeLayout>(R.id.rl_container)
-//
-//        val list_frames = findViewById<RecyclerView>(R.id.list_frames)
-//
-//        val btn_next = findViewById<Button>(R.id.btn_next)
+        val list_bg = findViewById<RecyclerView>(R.id.list_bg)
+
+        val tab_layout = findViewById<LinearLayout>(R.id.tab_layout)
+        val tab_border = findViewById<LinearLayout>(R.id.tab_border)
+        val tab_bg = findViewById<LinearLayout>(R.id.tab_bg)
+
+        val seekbar_space = findViewById<SeekBar>(R.id.seekbar_space)
+        val seekbar_corner = findViewById<SeekBar>(R.id.seekbar_corner)
+
+        val rl_container = findViewById<RelativeLayout>(R.id.rl_container)
+
+        val list_frames = findViewById<RecyclerView>(R.id.list_frames)
 
         DEFAULT_SPACE = ImageUtils.pxFromDp(this, 2F)
         MAX_SPACE = ImageUtils.pxFromDp(this, 30F)
@@ -252,16 +247,12 @@ open class CollageActivity : AppCompatActivity(), View.OnClickListener,
             .addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
                     mOutputScale = ImageUtils.calculateOutputScaleFactor(
-                        rl_container.getWidth(),
-                        rl_container.getHeight()
+                        rl_container.width,
+                        rl_container.height
                     )
                     buildLayout(mSelectedTemplateItem!!)
                     // remove listener
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        rl_container.getViewTreeObserver().removeOnGlobalLayoutListener(this)
-                    } else {
-                        rl_container.getViewTreeObserver().removeGlobalOnLayoutListener(this)
-                    }
+                    rl_container.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 }
             })
 
@@ -375,8 +366,8 @@ open class CollageActivity : AppCompatActivity(), View.OnClickListener,
         rl_container.addView(mPhotoView, params)
         //reset space and corner seek bars
 
-        seekbar_space.setProgress((MAX_SPACE_PROGRESS * mSpace / MAX_SPACE).toInt())
-        seekbar_corner.setProgress((MAX_CORNER_PROGRESS * mCorner / MAX_CORNER).toInt())
+        seekbar_space.progress = (MAX_SPACE_PROGRESS * mSpace / MAX_SPACE).toInt()
+        seekbar_corner.progress = (MAX_CORNER_PROGRESS * mCorner / MAX_CORNER).toInt()
     }
 
     @Throws(OutOfMemoryError::class)
@@ -384,7 +375,7 @@ open class CollageActivity : AppCompatActivity(), View.OnClickListener,
         try {
             val template = mFramePhotoLayout!!.createImage()
             val result =
-                Bitmap.createBitmap(template!!.width, template.height, Bitmap.Config.ARGB_8888)
+                Bitmap.createBitmap(template.width, template.height, Bitmap.Config.ARGB_8888)
             val canvas = Canvas(result)
             val paint = Paint(Paint.ANTI_ALIAS_FLAG)
             if (mBackgroundImage != null && !mBackgroundImage!!.isRecycled()) {

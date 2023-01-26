@@ -18,25 +18,21 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_my_creation.*
 import java.io.File
-import java.lang.Long.compare
 import java.util.*
 import kotlin.collections.ArrayList
 import android.os.SystemClock
 import android.util.DisplayMetrics
 import android.util.Log
 import android.widget.RelativeLayout
+import com.example.piceditor.MainActivity.Companion.isFromSaved
 
 
 class MyCreationActivity : AppCompatActivity() {
 
-
     lateinit var img_path: ArrayList<File_Model>
 
-    companion object {
-        var isFromSaved: Boolean = true
-    }
-
     private var mLastClickTime: Long = 0
+
     fun checkClick() {
         if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
             return
@@ -56,6 +52,7 @@ class MyCreationActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("StaticFieldLeak")
     inner class LoadImages : AsyncTask<Void, Void, Void?>() {
 
 
@@ -76,7 +73,7 @@ class MyCreationActivity : AppCompatActivity() {
                             onBackPressed()
                         }
                     })
-                var alert = builder.create()
+                val alert = builder.create()
                 alert.show()
                 return
             }
@@ -92,21 +89,21 @@ class MyCreationActivity : AppCompatActivity() {
     }
 
     fun updateFileList() {
-        var path = Environment.getExternalStorageDirectory().toString() + "/ArtisticEditor"
+        val path = Environment.getExternalStorageDirectory().toString() + "/Photo Editor"
         val directory = File(path)
         val files = directory.listFiles()
 
         img_path = ArrayList()
 
-        var fileDateCmp = Comparator<File> { f1, f2 ->
-            compare(f2.lastModified(), f1.lastModified())
+        val fileDateCmp = Comparator<File> { f1, f2 ->
+            f2.lastModified().compareTo(f1.lastModified())
         }
 
         if (files != null) {
             Arrays.sort(files, fileDateCmp)
 
-            for (i in 0 until files.size) {
-                var file_model = File_Model()
+            for (i in files.indices) {
+                val file_model = File_Model()
                 file_model.file_path = files[i].absolutePath
                 file_model.file_title = files[i].name
                 img_path.add(file_model)
@@ -125,7 +122,7 @@ class MyCreationActivity : AppCompatActivity() {
         var paths = imgPath
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreationHolder {
-            var view = LayoutInflater.from(this@MyCreationActivity)
+            val view = LayoutInflater.from(this@MyCreationActivity)
                 .inflate(R.layout.item_creation, parent, false)
 
             isFromSaved = false
@@ -146,17 +143,17 @@ class MyCreationActivity : AppCompatActivity() {
             holder.img_creation.layoutParams = RelativeLayout.LayoutParams(width / 2, width / 2)
 
             holder.img_creation.setImageURI(Uri.parse(paths[position].file_path))
-            holder.txt_title.setText(paths[position].file_title)
+            holder.txt_title.text = paths[position].file_title
             holder.img_dlt.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {
 
                     checkClick()
 
-                    var builder = AlertDialog.Builder(this@MyCreationActivity)
+                    val builder = AlertDialog.Builder(this@MyCreationActivity)
                     builder.setMessage("Are you sure you want to delete?")
                         .setPositiveButton("Yes", object : DialogInterface.OnClickListener {
                             override fun onClick(dialog: DialogInterface?, which: Int) {
-                                var filepath = paths[position].file_path
+                                val filepath = paths[position].file_path
                                 if (File(filepath).delete()) {
                                     paths.removeAt(position)
                                     notifyDataSetChanged()

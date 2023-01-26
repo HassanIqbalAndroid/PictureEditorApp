@@ -49,6 +49,7 @@ import com.example.piceditor.adapters.ColorAdapter
 import com.example.piceditor.adapters.FilterNameAdapter
 import com.example.piceditor.adapters.FontAdapter
 import com.example.piceditor.model.FilterData
+import com.example.piceditor.MainActivity
 import com.photoeditor.photoeffect.adapter.*
 import com.photoeditor.photoeffect.model.EffectData
 import com.photoeditor.photoeffect.stickerview.StickerImageView

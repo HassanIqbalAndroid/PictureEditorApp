@@ -11,8 +11,8 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.piceditor.MainActivity
 import java.io.File
 
 class ShowImageActivity : AppCompatActivity(), View.OnClickListener {
@@ -21,12 +21,12 @@ class ShowImageActivity : AppCompatActivity(), View.OnClickListener {
     private var img_show: ImageView? = null
     private var saved_file: File? = null
     private var density: Float = 0.toFloat()
-    internal var D_height: Int = 0
-    internal var D_width: Int = 0
+    private var D_height: Int = 0
+    private var D_width: Int = 0
     private var display: DisplayMetrics? = null
 
     private var mLastClickTime: Long = 0
-    fun checkClick() {
+    private fun checkClick() {
         if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
             return
         }
@@ -38,7 +38,7 @@ class ShowImageActivity : AppCompatActivity(), View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_show_image)
-        Toast.makeText(this,"Image saved!",Toast.LENGTH_SHORT).show()
+
         image_uri = intent.getStringExtra("image_uri")
 
         saved_file = File(image_uri!!)
@@ -63,18 +63,15 @@ class ShowImageActivity : AppCompatActivity(), View.OnClickListener {
         when (v.id) {
             R.id.img_folder -> {
                 checkClick()
-                var intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
         }
     }
-
-
     override fun onBackPressed() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
-
 }
