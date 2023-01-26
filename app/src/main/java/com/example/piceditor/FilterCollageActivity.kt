@@ -5,11 +5,9 @@ import android.content.Intent
 import android.graphics.*
 import android.media.MediaScannerConnection
 import android.net.Uri
-import android.os.AsyncTask
+import android.os.*
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.os.Environment
-import android.os.SystemClock
+import android.support.annotation.RequiresApi
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,10 +17,10 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.piceditor.MainActivity.Companion.isFromSaved
 import com.example.piceditor.adapters.FilterNameAdapter
 import com.example.piceditor.model.FilterData
 import com.example.piceditor.utils.AndroidUtils
+import com.example.piceditor.MainActivity.Companion.isFromSaved
 import kotlinx.android.synthetic.main.activity_filter_collage.*
 import java.io.File
 import java.io.FileOutputStream
@@ -40,6 +38,7 @@ class FilterCollageActivity : AppCompatActivity(), View.OnClickListener {
         mLastClickTime = SystemClock.elapsedRealtime()
     }
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.img_save -> {
@@ -59,6 +58,7 @@ class FilterCollageActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private val screenShot: Bitmap
+        @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
         get() {
             val findViewById = findViewById<View>(R.id.img_collage)
             findViewById.background = null
@@ -77,6 +77,7 @@ class FilterCollageActivity : AppCompatActivity(), View.OnClickListener {
 
     private var savedImageUri: Uri? = null
 
+    @RequiresApi(Build.VERSION_CODES.FROYO)
     private fun saveBitmap(bitmap: Bitmap) {
         val mainDir = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "Photo Editor")
         if (!mainDir.exists()) {
@@ -255,6 +256,7 @@ class FilterCollageActivity : AppCompatActivity(), View.OnClickListener {
             holder.filterName.text = filterType[position].text
 
             holder.rl_filteritem.setOnClickListener(object : View.OnClickListener {
+                @androidx.annotation.RequiresApi(Build.VERSION_CODES.HONEYCOMB)
                 override fun onClick(v: View?) {
 
                     val imgCollage = findViewById<ImageView>(R.id.img_collage)

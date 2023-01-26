@@ -1,4 +1,4 @@
-package com.photoeditor.photoeffect
+package com.example.piceditor
 
 import android.Manifest
 import android.app.Activity

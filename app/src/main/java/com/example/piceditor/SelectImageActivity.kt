@@ -1,5 +1,6 @@
 package com.example.piceditor
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -21,6 +22,7 @@ class SelectImageActivity : AppCompatActivity(), GalleryAlbumImageFragment.OnSel
     SelectedPhotoAdapter.OnDeleteButtonClickListener {
 
 
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onDeleteButtonClick(str: String) {
 
         mSelectedImages.remove(str)
@@ -31,7 +33,7 @@ class SelectImageActivity : AppCompatActivity(), GalleryAlbumImageFragment.OnSel
         sb.append("(")
         sb.append(this.mSelectedImages.size)
         sb.append(")")
-        textView.setText(str2 + sb.toString())
+        textView.text = str2 + sb.toString()
     }
 
     private val mSelectedImages = ArrayList<String>()
@@ -46,28 +48,27 @@ class SelectImageActivity : AppCompatActivity(), GalleryAlbumImageFragment.OnSel
     }
 
 
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onSelectImage(str: String) {
-        if (str != null) {
-            if (this.mSelectedImages.size == this.maxIamgeCount) {
-                Toast.makeText(
-                    this,
-                    String.format("You only need %d photo(s)", maxIamgeCount),
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-            } else {
-                var uri = Uri.fromFile(File(str))
+        if (this.mSelectedImages.size == this.maxIamgeCount) {
+            Toast.makeText(
+                this,
+                String.format("You only need %d photo(s)", maxIamgeCount),
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        } else {
+            var uri = Uri.fromFile(File(str))
 
-                this.mSelectedImages.add(str)
-                this.mSelectedPhotoAdapter.notifyDataSetChanged()
-                val textView = text_imgcount
-                val str2 = "Select upto 10 photo(s)"
-                val sb = StringBuilder()
-                sb.append("(")
-                sb.append(this.mSelectedImages.size)
-                sb.append(")")
-                textView.setText(str2 + sb.toString())
-            }
+            this.mSelectedImages.add(str)
+            this.mSelectedPhotoAdapter.notifyDataSetChanged()
+            val textView = text_imgcount
+            val str2 = "Select upto 10 photo(s)"
+            val sb = StringBuilder()
+            sb.append("(")
+            sb.append(this.mSelectedImages.size)
+            sb.append(")")
+            textView.text = str2 + sb.toString()
         }
     }
 
@@ -84,12 +85,11 @@ class SelectImageActivity : AppCompatActivity(), GalleryAlbumImageFragment.OnSel
         supportFragmentManager.beginTransaction()
             .replace(R.id.frame_container, GalleryAlbumFragment(this)).commit()
 
-        btn_next.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                checkClick()
-                createCollage()
-            }
-        })
+        btn_next.setOnClickListener {
+//            Toast.makeText(this, "Hi Working", Toast.LENGTH_SHORT).show()
+            checkClick()
+            createCollage()
+        }
     }
 
     fun createCollage() {
@@ -99,7 +99,7 @@ class SelectImageActivity : AppCompatActivity(), GalleryAlbumImageFragment.OnSel
         }
 
         try {
-            var intent = Intent(this, CollageActivity::class.java)
+            val intent = Intent(this, CollageActivity::class.java)
             intent.putExtra("imageCount", mSelectedImages.size)
             intent.putExtra("selectedImages", mSelectedImages)
             intent.putExtra("imagesinTemplate", mSelectedImages.size)

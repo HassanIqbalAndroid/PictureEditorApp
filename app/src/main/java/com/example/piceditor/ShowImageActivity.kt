@@ -12,6 +12,7 @@ import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.example.piceditor.MainActivity
 import java.io.File
 
 class ShowImageActivity : AppCompatActivity(), View.OnClickListener {
@@ -73,5 +74,4 @@ class ShowImageActivity : AppCompatActivity(), View.OnClickListener {
         startActivity(intent)
         finish()
     }
-
 }

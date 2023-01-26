@@ -252,11 +252,7 @@ open class CollageActivity : AppCompatActivity(), View.OnClickListener,
                     )
                     buildLayout(mSelectedTemplateItem!!)
                     // remove listener
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        rl_container.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    } else {
-                        rl_container.viewTreeObserver.removeGlobalOnLayoutListener(this)
-                    }
+                    rl_container.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 }
             })
 
