@@ -1,8 +1,6 @@
 package com.example.piceditor
 
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.SystemClock
@@ -15,8 +13,6 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.FileProvider
-import com.photoeditor.photoeffect.MainActivity
 import java.io.File
 
 class ShowImageActivity : AppCompatActivity(), View.OnClickListener {

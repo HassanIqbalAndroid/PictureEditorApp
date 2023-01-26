@@ -1,5 +1,4 @@
-package com.photoeditor.photoeffect
-
+package com.example.piceditor
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
@@ -175,7 +174,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 intent.action = Intent.ACTION_PICK
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE)
 
-                }
+            }
             R.id.collage -> {
                 checkClick()
                 var intent = Intent(this, SelectImageActivity::class.java)
@@ -233,12 +232,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         } else if(resultCode == Activity.RESULT_OK && requestCode == CAMERA_REQUEST) {
-                if (mCapturedImageUri != null) {
-                    var intent = Intent(this, ImageEditActivity::class.java)
-                    intent.putExtra("image_uri", mCapturedImageUri.toString())
-                    startActivity(intent)
-                }
+            if (mCapturedImageUri != null) {
+                var intent = Intent(this, ImageEditActivity::class.java)
+                intent.putExtra("image_uri", mCapturedImageUri.toString())
+                startActivity(intent)
             }
+        }
     }
 
 }
