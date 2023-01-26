@@ -9,6 +9,6 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="95dp"
-        android:layout_height="@dimen/gallery_image_size"
+        android:layout_height="83dp"
         android:scaleType="centerCrop" />
 </LinearLayout>
