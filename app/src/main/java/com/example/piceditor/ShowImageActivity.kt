@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.piceditor.MainActivity
@@ -56,6 +57,13 @@ class ShowImageActivity : AppCompatActivity(), View.OnClickListener {
         img_show!!.setImageURI(Uri.parse(image_uri))
 
         findViewById<View>(R.id.img_folder).setOnClickListener(this)
+        val share = findViewById<LinearLayout>(R.id.share)
+        share.setOnClickListener(){
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.type = "image/*"
+            shareIntent.putExtra(Intent.EXTRA_STREAM, image_uri)
+            startActivity(Intent.createChooser(shareIntent, "Share image"))
+        }
 
     }
 
@@ -63,7 +71,7 @@ class ShowImageActivity : AppCompatActivity(), View.OnClickListener {
         when (v.id) {
             R.id.img_folder -> {
                 checkClick()
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, MyCreationActivity::class.java)
                 startActivity(intent)
                 finish()
             }

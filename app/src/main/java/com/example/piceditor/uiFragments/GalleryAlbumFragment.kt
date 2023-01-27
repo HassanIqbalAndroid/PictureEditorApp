@@ -1,6 +1,7 @@
 package com.example.piceditor.uiFragments
 
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
@@ -100,6 +101,7 @@ class GalleryAlbumFragment(context: Context) : Fragment() {
         return fragment_view
     }
 
+    @SuppressLint("Range")
     fun loadPhotoAlbums(): ArrayList<GalleryAlbum> {
 
         var r0 = LinkedHashMap<Long, GalleryAlbum>()

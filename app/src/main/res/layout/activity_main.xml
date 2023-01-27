@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/back_ground"
     tools:context=".MainActivity">
 
     <ImageView
@@ -21,16 +21,30 @@
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/setting"
+        android:id="@+id/galary"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="1,1.5"
-        android:src="@drawable/ic_baseline_settings_24"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/gallary"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/vertical"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/txtgalary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gallery"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/vertical"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 
@@ -117,8 +131,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.85"
-        />
+        app:layout_constraintGuide_percent="0.8" />
     <!--    Vertical Constraint at 70-->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical5"

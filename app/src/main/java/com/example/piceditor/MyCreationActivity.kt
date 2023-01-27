@@ -89,7 +89,7 @@ class MyCreationActivity : AppCompatActivity() {
     }
 
     fun updateFileList() {
-        val path = Environment.getExternalStorageDirectory().toString() + "/Photo Editor"
+        val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/TriEditor"
         val directory = File(path)
         val files = directory.listFiles()
 

@@ -115,12 +115,17 @@ class FilterCollageActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     lateinit var bmp: Bitmap
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filter_collage)
 
         val bitmapPath = this.cacheDir.absolutePath + "/tempBMP"
         bmp = BitmapFactory.decodeFile(bitmapPath)
+        val back = findViewById<ImageView>(R.id.back)
+        back.setOnClickListener{
+            finish()
+        }
 
 
 

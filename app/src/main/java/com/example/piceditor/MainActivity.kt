@@ -10,6 +10,8 @@ import android.os.*
 import android.provider.MediaStore
 import android.util.Log
 import android.view.*
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -71,7 +73,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_main)
-
+        val gallery = findViewById<ImageView>(R.id.galary)
+        gallery.setOnClickListener(){
+            var intent = Intent(this, MyCreationActivity::class.java)
+            startActivity(intent)
+        }
 
         if (isFromSplash) {
             //    llProgressBar.visibility = View.VISIBLE
@@ -168,6 +174,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
 
         when (v!!.id) {
+//            R.id.galary -> {
+//                checkClick()
+//                var intent = Intent(this, MyCreationActivity::class.java)
+//                startActivity(intent)
+//            }
+
             R.id.editore -> {
                 checkClick()
                 var intent = Intent()

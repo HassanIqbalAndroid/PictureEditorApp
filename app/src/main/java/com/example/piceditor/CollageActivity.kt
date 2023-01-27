@@ -1,9 +1,11 @@
 package com.example.piceditor
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.os.SystemClock
@@ -201,6 +203,7 @@ open class CollageActivity : AppCompatActivity(), View.OnClickListener,
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_collage)
@@ -217,6 +220,11 @@ open class CollageActivity : AppCompatActivity(), View.OnClickListener,
         val rl_container = findViewById<RelativeLayout>(R.id.rl_container)
 
         val list_frames = findViewById<RecyclerView>(R.id.list_frames)
+
+        val back = findViewById<ImageView>(R.id.btn_back)
+        back.setOnClickListener(){
+            finish()
+        }
 
         DEFAULT_SPACE = ImageUtils.pxFromDp(this, 2F)
         MAX_SPACE = ImageUtils.pxFromDp(this, 30F)
