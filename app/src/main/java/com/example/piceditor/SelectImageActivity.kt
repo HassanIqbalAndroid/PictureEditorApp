@@ -1,5 +1,6 @@
 package com.example.piceditor
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.piceditor.adapters.SelectedPhotoAdapter
@@ -69,9 +71,14 @@ class SelectImageActivity : AppCompatActivity(), GalleryAlbumImageFragment.OnSel
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_image)
+        val back = findViewById<ImageView>(R.id.back)
+        back.setOnClickListener{
+            onBackPressed()
+        }
 
         mSelectedPhotoAdapter = SelectedPhotoAdapter(mSelectedImages, this)
 
